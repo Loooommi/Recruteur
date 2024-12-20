@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTD Grove Street</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a2a3a; /* Fond bleu foncé */
+            color: #e0e0e0; /* Texte gris clair */
+            background-image: url('https://i.goopics.net/jnbkw7.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.7); /* Fond noir transparent */
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-title img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 2.5rem;
+            color: #ffffff; /* Texte en blanc pour un contraste clair */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .welcome-message {
+            text-align: center;
+            font-size: 2rem;
+            color: #ffffff; /* Texte en blanc pour un contraste clair */
+            margin-top: 100px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .btn-show-form, .btn-back {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 30px auto;
+            background-color: #4CAF50; /* Boutons en vert */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-show-form:hover, .btn-back:hover {
+            background-color: #45a049; /* Vert plus foncé au survol */
+            transform: scale(1.05);
+        }
+
+        .btn-show-form:active, .btn-back:active {
+            transform: scale(1);
+        }
+
+        .form-container {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 400px;
+            margin: 5% auto;
+            color: #ffffff;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7); /* Fond noir transparent pour le formulaire */
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background-color: #222; /* Gris foncé pour les champs */
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #f3c663; /* Jaune au focus */
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50; /* Bouton vert */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Vert plus foncé au survol */
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(1);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <img src="https://i.goopics.net/752hnt.png" alt="Logo du site">
+            <h1>LTD Grove Street</h1>
+        </div>
+    </header>
+
+    <!-- Page d'Accueil -->
+    <div class="welcome-message" id="welcomeMessage">
+        <p>Bienvenue sur le formulaire pour devenir recruteur.</p>
+    </div>
+
+    <button class="btn-show-form" id="showFormButton">Accéder au formulaire</button>
+
+    <!-- Page du Formulaire -->
+    <div class="form-container hidden" id="formContainer">
+        <h2>Envoyer un Message</h2>
+        <form id="webhookForm">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" placeholder="Entrez votre nom" required>
+
+            <label for="message">Message :</label>
+            <textarea id="message" name="message" rows="5" placeholder="Entrez votre message" required></textarea>
+
+            <button type="submit">Envoyer</button>
+        </form>
+
+        <button class="btn-back" id="backButton">Retour</button>
+    </div>
+
+    <script>
+        // Montre le formulaire lorsque le bouton "Accéder au formulaire" est cliqué
+        document.getElementById('showFormButton').addEventListener('click', function() {
+            document.getElementById('welcomeMessage').classList.add('hidden');
+            document.getElementById('showFormButton').classList.add('hidden');
+            document.getElementById('formContainer').classList.remove('hidden');
+        });
+
+        // Retour à la page d'accueil
+        document.getElementById('backButton').addEventListener('click', function() {
+            document.getElementById('welcomeMessage').classList.remove('hidden');
+            document.getElementById('showFormButton').classList.remove('hidden');
+            document.getElementById('formContainer').classList.add('hidden');
+        });
+
+        // Gestion de l'envoi du formulaire
+        document.getElementById('webhookForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const webhookUrl = "https://discord.com/api/webhooks/1305172440837521420/xjtE0zvlvXIZMf3Jx3SI5sZ_nNpJXrw1HTTxyEcmelSh3nNF2vc06DmQ9nWrCBc5edQf"; // Remplacez par l'URL de votre webhook
+
+            const payload = {
+                username: document.getElementById('username').value,
+                content: document.getElementById('message').value
+            };
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    alert('Message envoyé avec succès !');
+                    document.getElementById('webhookForm').reset();
+                } else {
+                    alert('Erreur lors de l\'envoi du message.');
+                }
+            } catch (error) {
+                alert('Une erreur s\'est produite : ' + error.message);
+            }
+        });
+    </script>
+
+</body>
+</html>
